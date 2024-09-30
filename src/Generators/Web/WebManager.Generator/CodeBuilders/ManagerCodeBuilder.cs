@@ -259,13 +259,15 @@ namespace WebManager.Generator.CodeBuilders
     {
         public bool Equals(INamedTypeSymbol x, INamedTypeSymbol y)
         {
-            // Implement equality logic based on your requirements
-            return x?.ToDisplayString() == y?.ToDisplayString();
+            if (x == null && y == null) return true;
+            if (x == null || y == null) return false;
+
+            return string.Equals(x.ToDisplayString(), y.ToDisplayString(), StringComparison.Ordinal);
         }
 
         public int GetHashCode(INamedTypeSymbol obj)
         {
-            return obj.ToDisplayString().GetHashCode();
+            return obj?.ToDisplayString().GetHashCode() ?? 0;
         }
     }
 }
