@@ -4,6 +4,7 @@ using Generator.Foundation.Generators.Base;
 using Generators.Base.Helpers;
 using Microsoft.CodeAnalysis;
 using WebManager.Generator.CodeBuilders;
+using Generators.Base;
 
 namespace WebManager.Contract.Generator.CodeBuilders
 {
@@ -18,7 +19,9 @@ namespace WebManager.Contract.Generator.CodeBuilders
             var repos = new ManagerCodeBuilder(context.AssemblyName).Get(context);
 
             List<CodeBuilder> result = new List<CodeBuilder>();
-            foreach (var repo in repos)
+            EquatableArray<CodeBuilder> equatableRepos = new(repos.ToArray());
+
+            foreach (var repo in equatableRepos)
             {
                 var interfaceBuilder = ClassInterface(repo, context);
                 result.Add(interfaceBuilder);
